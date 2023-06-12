@@ -90,6 +90,7 @@ const isValidMinion = (instance) => {
   || typeof instance.title !== 'string') {
     throw new Error('Minion\'s name, title, and weaknesses must be strings');
   }
+  
   if (!isNaN(parseFloat(instance.salary)) && isFinite(instance.salary)) {
     instance.salary = Number(instance.salary);
   } else {
@@ -224,13 +225,16 @@ const addToDatabase = (modelType, instance) => {
 
 const updateInstanceInDatabase = (modelType, instance) => {
   const model = findDataArrayByName(modelType);
+  console.log(instance);
   if (model === null) {
     return null;
   }
   const instanceIndex = model.data.findIndex((element) => {
     return element.id === instance.id;
   });
-  if (instanceIndex > -1 && model.isValid(instance)) {
+
+   if (instanceIndex > -1 && model.isValid(instance)) {
+ 
     model.data[instanceIndex] = instance;
     return model.data[instanceIndex];
   } else {
